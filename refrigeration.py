@@ -97,8 +97,9 @@ cold.set_attr(Q=-100e3)
 
 nw.solve(mode='design')
 
-print(power.P.val / 0.9)
-# Annahme, beide Wirkungsgrade sind gleich groß (P_ges * 0.9 geht in TESPy nicht)
+# Assumption: both efficiency values are equal and sum up to a total of 10 %
+# losses based on the resulting shaft power (direct implementation currently
+# not possible in TESPy)
 eta = 0.961978
 nw.del_busses(power)
 power = Bus('power input')
@@ -110,57 +111,22 @@ nw.solve(mode='design')
 
 # print results to prompt and generate model documentation
 nw.print_results()
-print(nw.results['Connection'])
-
-dh1 = (nw.results['Connection'].loc['2', 'h'] - nw.results['Connection'].loc['1', 'h'])
-dh2 = (nw.results['Connection'].loc['3', 'h'] - nw.results['Connection'].loc['2', 'h'])
-dh3 = (nw.results['Connection'].loc['4', 'h'] - nw.results['Connection'].loc['3', 'h'])
-dh4 = (nw.results['Connection'].loc['1', 'h'] - nw.results['Connection'].loc['4', 'h'])
-dh5 = (nw.results['Connection'].loc['12', 'h'] - nw.results['Connection'].loc['11', 'h'])
-
-dT1 = (nw.results['Connection'].loc['2', 'T'] - nw.results['Connection'].loc['1', 'T'])
-dT2 = (nw.results['Connection'].loc['3', 'T'] - nw.results['Connection'].loc['2', 'T'])
-dT3 = (nw.results['Connection'].loc['4', 'T'] - nw.results['Connection'].loc['3', 'T'])
-dT4 = (nw.results['Connection'].loc['1', 'T'] - nw.results['Connection'].loc['4', 'T'])
-dT5 = (nw.results['Connection'].loc['12', 'T'] - nw.results['Connection'].loc['11', 'T'])
-
-print(dh1 / dT1)
-print(dh2 / dT2)
-print(dh3 / dT3)
-print(dh4 / dT4)
-print(dh5 / dT5)
-
-
-
-document_model(nw)
 
 # carry out exergy analysis
 ean = ExergyAnalysis(nw, E_P=[cool_product_bus], E_F=[power], E_L=[heat_loss_bus])
 ean.analyse(pamb=pamb, Tamb=Tamb)
 
-for r in nw.results.values():
-    print(r.dtypes)
-
 # print exergy analysis results to prompt
 ean.print_results()
 
-print(ean.component_data)
-print(ean.connection_data)
-print(ean.bus_data)
-print(ean.group_data)
+# generate Grassmann diagram
+links, nodes = ean.generate_plotly_sankey_input(display_thresold=1000)
 
-ean.group_data[['E_F', 'E_P', 'E_D']] /= 1e3
-ean.group_data[['epsilon', 'y_Dk', 'y*_Dk']] *= 1e2
-
-# print(ean.group_data[['E_F', 'E_P', 'E_D', 'epsilon', 'y_Dk', 'y*_Dk']].to_latex(float_format='%.2f'))
-# # generate Grassmann diagram
-# links, nodes = ean.generate_plotly_sankey_input(display_thresold=1000)
-#
-# fig = go.Figure(go.Sankey(
-#     arrangement="freeform",
-#     node={
-#         "label": nodes,
-#         'pad': 11,
-#         'color': 'orange'},
-#     link=links))
-# fig.show()
+fig = go.Figure(go.Sankey(
+    arrangement="freeform",
+    node={
+        "label": nodes,
+        'pad': 11,
+        'color': 'orange'},
+    link=links))
+fig.show()
