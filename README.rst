@@ -19,16 +19,7 @@ directory of the repository run
 
     pip install -r ./requirements.txt
 
-to install the version requirements for the SEGS.py python script.
-
-On top of the python script, an EBSILON model (v14.03.01) for the identical
-setup is provided for validation. The results are available in the respective
-flowsheet. The solar field is not considered for further investigation, thus it
-represents a heat input only.
-
-.. figure:: ./flowsheet_EBSILON.svg
-    :align: center
-    :alt: Topology of the Solar Energy Generating System (SEGS) in EBSILON
+to install the version requirements for the refrigeration.py python script.
 
 The original data of the plant are obtained from the following publication:
 
@@ -36,7 +27,7 @@ The original data of the plant are obtained from the following publication:
 refrigeration machine: Part 1 — methodology and first evaluation, in: Energy
 Systems Analysis, Thermodynamics and Sustainability Combustion Science and
 Engineering Nanoengineering for Energy, Parts A and B, ASMEDC, 2011.
-doi:10.1115/imece2011-62688.*
+doi: 10.1115/imece2011-62688.*
 
 Citation
 --------
