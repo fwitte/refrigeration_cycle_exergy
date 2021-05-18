@@ -39,8 +39,8 @@ closer = CycleCloser('Cycle closer')
 cp = Compressor('Compressor')
 turb = Turbine('Turbine')
 
-cold = HeatExchanger('Cool side heat exchanger')
-hot = HeatExchanger('Hot side heat exchanger')
+cold = HeatExchanger('Cooling heat exchanger')
+hot = HeatExchanger('Heat sink heat exchanger')
 
 # connections definition
 # power cycle
@@ -56,7 +56,7 @@ c12 = Connection(cold, 'out1', air_out, 'in1', label='12')
 c21 = Connection(water_in, 'out1', hot, 'in2', label='21')
 c22 = Connection(hot, 'out2', water_out, 'in1', label='22')
 
-    # add connections to network
+# add connections to network
 nw.add_conns(c0, c1, c2, c3, c4, c11, c12, c21, c22)
 
 # power bus
@@ -108,9 +108,24 @@ power.add_comps(
     {'comp': cp, 'char': eta, 'base': 'bus'})
 nw.add_busses(power)
 nw.solve(mode='design')
-
 # print results to prompt and generate model documentation
 nw.print_results()
+
+fmt = {
+    'latex_body': True,
+    'include_results': True,
+    'HeatExchanger': {
+        'params': ['Q', 'ttd_l', 'ttd_u', 'pr1', 'pr2']},
+    'Connection': {
+        'p': {'float_fmt': '{:,.4f}'},
+        's': {'float_fmt': '{:,.4f}'},
+        'h': {'float_fmt': '{:,.2f}'},
+        'fluid': {'include_results': False}
+    },
+    'include_results': True,
+    'draft': False
+}
+document_model(nw, fmt=fmt)
 
 # carry out exergy analysis
 ean = ExergyAnalysis(nw, E_P=[cool_product_bus], E_F=[power], E_L=[heat_loss_bus])
