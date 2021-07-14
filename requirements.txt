@@ -1,2 +1,2 @@
-tespy==0.4.3.post5
+tespy==0.4.4
 plotly==4.14.3
