@@ -32,6 +32,118 @@ Systems Analysis, Thermodynamics and Sustainability Combustion Science and
 Engineering Nanoengineering for Energy, Parts A and B, ASMEDC, 2011.
 doi: 10.1115/imece2011-62688.*
 
+
+
+Valdiation and Results of Exergy Analysis
+-----------------------------------------
+
+The tables below show the results of the simulation as well as the validation
+results. The original data from the publication are provided in the .csv files
+`<component_validation.csv>`_ and `<connection_validation.csv>`_.
+
+Connection data
+^^^^^^^^^^^^^^^
+
+**TESPy simulation**
+
+====  ===============  ==============  ==============  ============  ===========  ===========
+..      e_PH in kJ/kg    e_T in kJ/kg    e_M in kJ/kg    E_PH in kW    E_T in kW    E_M in kW
+====  ===============  ==============  ==============  ============  ===========  ===========
+0                 5.8             5.8             0.0         23.98        23.98         0.00
+1                 5.8             5.8             0.0         23.98        23.98         0.00
+2               163.9            22.1           141.8        674.08        90.85       583.23
+3               137.8             0.2           137.6        566.77         0.68       566.09
+4                17.1            12.9             4.2         70.28        53.11        17.17
+11                2.2             2.2             0.0         22.31        22.31         0.00
+12                3.8             3.8             0.0         37.82        37.82         0.00
+21                0.1            -0.0             0.1          0.40        -0.00         0.40
+22                1.6             1.5             0.1         12.47        12.07         0.40
+====  ===============  ==============  ==============  ============  ===========  ===========
+
+**Absolute difference in the values Δ**
+
+====  =============  ===========  ============  ==============  ================  ================
+..      Δ m in kg/s    Δ T in °C    Δ p in bar    Δ h in kJ/kg    Δ e_T in kJ/kg    Δ e_M in kJ/kg
+====  =============  ===========  ============  ==============  ================  ================
+1            -0.085          0.0          0.00             0.0               0.0               0.0
+2            -0.085          0.2          0.00             0.1               0.0              -0.0
+3            -0.085         -0.0         -0.00            -0.7               0.0              -0.0
+4            -0.085         -0.4          0.00            -0.5               0.0               0.0
+11           -0.023          0.0          0.00             0.1               0.0               0.0
+12           -0.023          0.0          0.00             0.1               0.0               0.0
+21           -0.106          0.0          0.00             0.0              -0.0               0.0
+22           -0.106          0.0          0.00            -0.0              -0.0               0.0
+====  =============  ===========  ============  ==============  ================  ================
+
+**Relative deviation in the values δ**
+
+====  ==========  ==========  ==========  ==========  ============  ============
+..      δ m in %    δ T in %    δ p in %    δ h in %    δ e_T in %    δ e_M in %
+====  ==========  ==========  ==========  ==========  ============  ============
+1         -2.024        -0.0         0.0         nan           0.2           nan
+2         -2.024         0.1         0.0         0.0           0.5          -0.1
+3         -2.024        -0.0        -0.0        -1.0          10.7          -0.0
+4         -2.024         0.7         0.0         2.2           1.4           0.1
+11        -0.229        -0.0         0.0         0.6           0.2           nan
+12        -0.229        -0.0         0.0         0.6           0.1           nan
+21        -1.328         0.0         0.0         nan          -inf           0.3
+22        -1.328         0.0         0.0        -0.0          -0.3           0.3
+====  ==========  ==========  ==========  ==========  ============  ============
+
+*Deviation due to differences in fluid property data*
+
+Component data
+^^^^^^^^^^^^^^
+
+**TESPy simulation**
+
+========================  ===========  ===========  ===========  ========  ===========  ============
+..                          E_F in kW    E_P in kW    E_D in kW    ε in %    y_Dk in %    y*_Dk in %
+========================  ===========  ===========  ===========  ========  ===========  ============
+Cooling heat exchanger          46.30        15.51        30.79      33.5          7.0           7.5
+Cycle closer                      nan          nan          nan       nan          nan           nan
+Compressor                     791.31       674.08       117.23      85.2         26.7          28.4
+Heat sink heat exchanger       107.31        12.07        95.24      11.2         21.7          23.1
+Turbine                        549.60       351.51       198.09      64.0         45.0          48.1
+Air source                      22.31          nan          nan       nan          nan           nan
+Air sink                          nan        37.82          nan       nan          nan           nan
+Water source                     0.40          nan          nan       nan          nan           nan
+Water sink                        nan        12.47          nan       nan          nan           nan
+========================  ===========  ===========  ===========  ========  ===========  ============
+
+**Absolute difference in the values Δ**
+
+========================  =============  =============  =============
+..                          Δ E_F in kW    Δ E_P in kW    Δ E_D in kW
+========================  =============  =============  =============
+Compressor                        -9.89         -13.82           3.93
+Cooling heat exchanger            -0.26          -0.00          -0.26
+Heat sink heat exchanger          -1.79          -0.17          -1.62
+Turbine                          -11.60         -75.79          64.19
+========================  =============  =============  =============
+
+**Relative deviation in the values δ**
+
+========================  ============  ============  ============
+..                          δ E_F in %    δ E_P in %    δ E_D in %
+========================  ============  ============  ============
+Compressor                       -1.23         -2.01          3.47
+Cooling heat exchanger           -0.56         -0.00         -0.84
+Heat sink heat exchanger         -1.64         -1.40         -1.67
+Turbine                          -2.07        -17.74         47.94
+========================  ============  ============  ============
+
+*High deviation due to differences in component exergy balances*
+
+Network data (results only)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+===========  ===========  ===========  ===========  ========
+  E_F in kW    E_P in kW    E_D in kW    E_L in kW    ε in %
+===========  ===========  ===========  ===========  ========
+     439.80        15.51       412.23        12.07       3.5
+===========  ===========  ===========  ===========  ========
+
 Citation
 --------
 The state of this repository is archived via zenodo. If you are using the
