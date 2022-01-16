@@ -157,4 +157,4 @@ SOFTWARE.
   [pdf model report]: refrigeration_model_report.pdf
   [component_validation.csv]: component_validation.csv
   [connection_validation.csv]: connection_validation.csv
-  [10.5281/zenodo.4751857]: https://zenodo.org/record/4751857
+  [10.5281/zenodo.4751856]: https://zenodo.org/record/4751856
