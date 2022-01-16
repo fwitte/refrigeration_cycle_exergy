@@ -127,8 +127,7 @@ def result_to_markdown(df, filename, prefix=''):
         })
     df.to_markdown(
         filename, disable_numparse=True,
-        colalign=['left'] + ['right' for _ in df.columns],
-        tablefmt='rst'
+        colalign=['left'] + ['right' for _ in df.columns]
     )
 
 
