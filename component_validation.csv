@@ -1,0 +1,6 @@
+label;E_F;E_P;E_D
+Compressor;801,2;687,9;113,3
+Inverter;447,56;402,8;44,76
+Heat sink heat exchanger;109,1;12,24;96,86
+Turbine;561,2;427,3;133,9
+Cooling heat exchanger;46,56;15,51;31,05
