@@ -96,7 +96,17 @@ in the .csv files [component_validation.csv][] and
 | Heat sink heat exchanger |      107.31 |       12.07 |       95.24 |     11.2 |        21.7 |         23.1 |
 | Turbine                  |      549.60 |      404.62 |      144.98 |     73.6 |        33.0 |         35.2 |
 
-**Absolute difference in the values Δ**
+**Disaggregating the Inverter from the Compressor and Turbine**
+
+|                          |   E_F in kW |   E_P in kW |   E_D in kW |
+|:-------------------------|------------:|------------:|------------:|
+| Compressor               |      785.21 |      674.08 |      111.12 |
+| Cooling heat exchanger   |       46.30 |       15.51 |       30.79 |
+| Heat sink heat exchanger |      107.31 |       12.07 |       95.24 |
+| Inverter                 |      439.80 |      395.82 |       43.98 |
+| Turbine                  |      549.60 |      418.51 |      131.09 |
+
+**Absolute difference in the values Δ compared to disaggregation**
 
 |                          |   Δ E_F in kW |   Δ E_P in kW |   Δ E_D in kW |
 |:-------------------------|--------------:|--------------:|--------------:|
@@ -106,7 +116,7 @@ in the .csv files [component_validation.csv][] and
 | Inverter                 |         -7.76 |         -6.98 |         -0.78 |
 | Turbine                  |        -11.60 |         -8.79 |         -2.81 |
 
-**Relative deviation in the values δ**
+**Relative deviation in the values δ compared to disaggregation**
 
 |                          |   δ E_F in % |   δ E_P in % |   δ E_D in % |
 |:-------------------------|-------------:|-------------:|-------------:|
