@@ -314,7 +314,10 @@ df_original_data = pd.read_csv(
 )
 
 # use aggregated data, as these include mechanical losses of compressor/turbine
-df_tespy = ean.aggregation_data.copy()
+df_tespy = ean.component_data.copy()
+df_tespy.loc['Inverter', 'E_D'] = ean.bus_data.loc[['Turbine', 'Compressor'], 'E_D'].sum()
+df_tespy.loc['Inverter', 'E_P'] = ean.bus_data.loc['Compressor', 'E_P'] - ean.bus_data.loc['Turbine', 'E_F']
+df_tespy.loc['Inverter', 'E_F'] = df_tespy.loc['Inverter', 'E_P'] + df_tespy.loc['Inverter', 'E_D']
 # # select available indices
 idx = np.intersect1d(df_tespy.index, df_original_data.index)
 cols = ['E_F', 'E_P', 'E_D']
