@@ -92,28 +92,29 @@ in the .csv files [component_validation.csv][] and
 |                          |   E_F in kW |   E_P in kW |   E_D in kW |   ε in % |   y_Dk in % |   y*_Dk in % |
 |:-------------------------|------------:|------------:|------------:|---------:|------------:|-------------:|
 | Cooling heat exchanger   |       46.30 |       15.51 |       30.79 |     33.5 |         7.0 |          7.5 |
-| Cycle closer             |         nan |         nan |         nan |      nan |         nan |          nan |
-| Compressor               |      791.31 |      674.08 |      117.23 |     85.2 |        26.7 |         28.4 |
+| Compressor               |      815.29 |      674.08 |      141.21 |     82.7 |        32.1 |         34.3 |
 | Heat sink heat exchanger |      107.31 |       12.07 |       95.24 |     11.2 |        21.7 |         23.1 |
-| Turbine                  |      549.60 |      351.51 |      198.09 |     64.0 |        45.0 |         48.1 |
+| Turbine                  |      549.60 |      404.62 |      144.98 |     73.6 |        33.0 |         35.2 |
 
 **Absolute difference in the values Δ**
 
 |                          |   Δ E_F in kW |   Δ E_P in kW |   Δ E_D in kW |
 |:-------------------------|--------------:|--------------:|--------------:|
-| Compressor               |         -9.89 |        -13.82 |          3.93 |
+| Compressor               |        -15.99 |        -13.82 |         -2.18 |
 | Cooling heat exchanger   |         -0.26 |         -0.00 |         -0.26 |
 | Heat sink heat exchanger |         -1.79 |         -0.17 |         -1.62 |
-| Turbine                  |        -11.60 |        -75.79 |         64.19 |
+| Inverter                 |         -7.76 |         -6.98 |         -0.78 |
+| Turbine                  |        -11.60 |         -8.79 |         -2.81 |
 
 **Relative deviation in the values δ**
 
 |                          |   δ E_F in % |   δ E_P in % |   δ E_D in % |
 |:-------------------------|-------------:|-------------:|-------------:|
-| Compressor               |        -1.23 |        -2.01 |         3.47 |
+| Compressor               |        -2.00 |        -2.01 |        -1.92 |
 | Cooling heat exchanger   |        -0.56 |        -0.00 |        -0.84 |
 | Heat sink heat exchanger |        -1.64 |        -1.40 |        -1.67 |
-| Turbine                  |        -2.07 |       -17.74 |        47.94 |
+| Inverter                 |        -1.73 |        -1.73 |        -1.74 |
+| Turbine                  |        -2.07 |        -2.06 |        -2.10 |
 
 *High deviation due to differences in component exergy balances*
 
