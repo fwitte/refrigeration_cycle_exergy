@@ -2,19 +2,14 @@
 
 from tespy.networks import Network
 from tespy.components import (
-    Sink, Source, Turbine, Condenser, HeatExchangerSimple, Merge, Splitter,
-    Valve, HeatExchanger, CycleCloser, Compressor)
-from tespy.connections import Connection, Bus, Ref
-from tespy.tools import CharLine
-from tespy.tools import document_model
+    Sink, Source, Turbine, HeatExchanger, CycleCloser, Compressor
+)
+from tespy.connections import Connection, Bus
 import pandas as pd
 import numpy as np
 from tespy.tools import ExergyAnalysis
 
 import plotly.graph_objects as go
-
-from CoolProp.CoolProp import PropsSI as PSI
-
 
 
 fmt_dict = {
@@ -137,10 +132,11 @@ Tamb = 25
 
 
 # setting up network
-nw = Network(fluids=['Air', 'water'])
+nw = Network()
 nw.set_attr(
     T_unit='C', p_unit='bar', h_unit='kJ / kg', m_unit='kg / s',
-    s_unit="kJ / kgK")
+    s_unit="kJ / kgK"
+)
 
 # components definition
 water_in = Source('Water source')
@@ -178,17 +174,20 @@ nw.add_conns(c0, c1, c2, c3, c4, c11, c12, c21, c22)
 power = Bus('power input')
 power.add_comps(
     {'comp': turb, 'char': 1, 'base': 'component'},
-    {'comp': cp, 'char': 1, 'base': 'bus'})
+    {'comp': cp, 'char': 1, 'base': 'bus'}
+)
 
 cool_product_bus = Bus('cooling')
 cool_product_bus.add_comps(
     {'comp': air_in, 'base': 'bus'},
-    {'comp': air_out})
+    {'comp': air_out}
+)
 
 heat_loss_bus = Bus('heat sink')
 heat_loss_bus.add_comps(
     {'comp': water_in, 'base': 'bus'},
-    {'comp': water_out})
+    {'comp': water_out}
+)
 
 nw.add_busses(power, cool_product_bus, heat_loss_bus)
 
@@ -213,34 +212,20 @@ cold.set_attr(Q=-100e3)
 nw.solve(mode='design')
 
 # Assumption: both efficiency values are equal and sum up to a total of 10 %
-# losses based on the resulting shaft power (direct implementation currently
-# not possible in TESPy)
+# losses based on the resulting shaft power
+# The direct implementation of this with the ExergyAnalysis feature is not
+# possible, but will be with the change to exerpy
 eta = 0.961978
 nw.del_busses(power)
 power = Bus('power input')
 power.add_comps(
     {'comp': turb, 'char': eta, 'base': 'component'},
-    {'comp': cp, 'char': eta, 'base': 'bus'})
+    {'comp': cp, 'char': eta, 'base': 'bus'}
+)
 nw.add_busses(power)
 nw.solve(mode='design')
 # print results to prompt and generate model documentation
 nw.print_results()
-
-fmt = {
-    'latex_body': True,
-    'include_results': True,
-    'HeatExchanger': {
-        'params': ['Q', 'ttd_l', 'ttd_u', 'pr1', 'pr2']},
-    'Connection': {
-        'p': {'float_fmt': '{:,.4f}'},
-        's': {'float_fmt': '{:,.4f}'},
-        'h': {'float_fmt': '{:,.2f}'},
-        'fluid': {'include_results': False}
-    },
-    'include_results': True,
-    'draft': False
-}
-document_model(nw, fmt=fmt)
 
 # carry out exergy analysis
 ean = ExergyAnalysis(nw, E_P=[cool_product_bus], E_F=[power], E_L=[heat_loss_bus])
@@ -262,7 +247,8 @@ fig = go.Figure(go.Sankey(
         "label": nodes,
         'pad': 11,
         'color': 'orange'},
-    link=links))
+    link=links)
+)
 fig.show()
 
 # validation (connections)
